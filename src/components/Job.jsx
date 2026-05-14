@@ -2,6 +2,7 @@ import { Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { FaHeart, FaRegHeart } from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
+import { addFavouriteAction, removeFavouriteAction } from "../redux/actions"
 
 const Job = ({ data }) => {
   const dispatch = useDispatch()
@@ -10,10 +11,11 @@ const Job = ({ data }) => {
   const isFavourite = favourites.includes(data.company_name)
 
   const toggleFavourite = () => {
-    dispatch({
-      type: isFavourite ? "REMOVE_FAVOURITE" : "ADD_FAVOURITE",
-      payload: data.company_name,
-    })
+    dispatch(
+      isFavourite
+        ? removeFavouriteAction(data.company_name)
+        : addFavouriteAction(data.company_name),
+    )
   }
 
   return (
